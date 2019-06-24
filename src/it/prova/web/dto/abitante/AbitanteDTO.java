@@ -12,7 +12,7 @@ public class AbitanteDTO {
 	private Long id;
 	private String nome;
 	private String cognome;
-	private int eta;
+	private Integer eta;
 	private String residenza;
 	@JsonIgnoreProperties(value= {"abitanti"})
 	private MunicipioDTO municipio;
@@ -80,11 +80,11 @@ public class AbitanteDTO {
 		this.cognome = cognome;
 	}
 
-	public int getEta() {
+	public Integer getEta() {
 		return eta;
 	}
 
-	public void setEta(int eta) {
+	public void setEta(Integer eta) {
 		this.eta = eta;
 	}
 

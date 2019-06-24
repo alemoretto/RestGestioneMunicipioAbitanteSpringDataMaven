@@ -100,4 +100,15 @@ public class AbitanteResource {
 		return Response.status(Response.Status.NOT_FOUND).entity("not found").build();
 	}
 
+	@GET
+	@Path("/cercaPerEsempio")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findByExample(AbitanteDTO abitanteInput) {
+		LOGGER.info("Verbo Http.........................." + request.getMethod());
+		List<Abitante> resultDTO = abitanteService
+				.findByExample(AbitanteDTO.buildAbitanteModelFromDTO(abitanteInput, true));
+		List<AbitanteDTO> result = resultDTO.stream().map(m -> AbitanteDTO.buildAbitanteDTOFromModel(m, true))
+				.collect(Collectors.toList());
+		return Response.status(200).entity(result).build();
+	}
 }

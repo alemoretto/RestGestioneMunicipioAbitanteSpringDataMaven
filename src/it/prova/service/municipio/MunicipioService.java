@@ -10,9 +10,9 @@ public interface MunicipioService {
 	
 	public List<Municipio> listAllMunicipiEager();
 
-	public Municipio caricaSingoloMunicipio(long id);
+	public Municipio caricaSingoloMunicipio(Long id);
 	
-	public Municipio caricaSingoloMunicipioConAbitanti(long id);
+	public Municipio caricaSingoloMunicipioConAbitanti(Long id);
 
 	public void aggiorna(Municipio municipioInstance);
 

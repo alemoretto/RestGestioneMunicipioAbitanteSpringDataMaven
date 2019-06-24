@@ -16,7 +16,7 @@ public class Abitante  {
 	private Long id;
 	private String nome;
 	private String cognome;
-	private int eta;
+	private Integer eta;
 	private String residenza;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "municipio_id", nullable = false)
@@ -26,7 +26,7 @@ public class Abitante  {
 
 	}
 
-	public Abitante(String nome, String cognome, int eta, String residenza) {
+	public Abitante(String nome, String cognome, Integer eta, String residenza) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
@@ -58,11 +58,11 @@ public class Abitante  {
 		this.cognome = cognome;
 	}
 
-	public int getEta() {
+	public Integer getEta() {
 		return eta;
 	}
 
-	public void setEta(int eta) {
+	public void setEta(Integer eta) {
 		this.eta = eta;
 	}
 

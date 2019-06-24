@@ -29,12 +29,12 @@ public class MunicipioServiceImpl implements MunicipioService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Municipio caricaSingoloMunicipio(long id) {
+	public Municipio caricaSingoloMunicipio(Long id) {
 		return municipioRepository.findOne(id);
 	}
 	
 	@Transactional(readOnly = true)
-	public Municipio caricaSingoloMunicipioConAbitanti(long id) {
+	public Municipio caricaSingoloMunicipioConAbitanti(Long id) {
 		Municipio result = municipioRepository.findOne(id);
 		//forza il caricamento eager
 		result.getAbitanti().size();

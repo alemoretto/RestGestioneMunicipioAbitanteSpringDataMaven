@@ -2,6 +2,8 @@ package it.prova.repository.abitante;
 
 import java.util.List;
 
+
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,13 +15,13 @@ public interface AbitanteRepository extends CrudRepository<Abitante, Long> {
 	List<Abitante> findByNome(String name);
 
 	// Anche questa!!!
-	List<Abitante> findByEtaGreaterThan(int etaInput);
+	List<Abitante> findByEtaGreaterThan(Integer etaInput);
 
 	// Combinazione di campi!!! (Come i dynamic finders)
-	List<Abitante> findByNomeAndEta(String nome, int eta);
+	List<Abitante> findByNomeAndEta(String nome, Integer eta);
 
 	// Order by!!!!
-	List<Abitante> findByEtaOrderByNomeDesc(int eta);
+	List<Abitante> findByEtaOrderByNomeDesc(Integer eta);
 
 	// se ho necessità particolari
 	@Query("from Abitante p where p.nome like ?1%")
@@ -30,5 +32,7 @@ public interface AbitanteRepository extends CrudRepository<Abitante, Long> {
 	
 	@Query("from Abitante p left join fetch p.municipio where p.id=?1")
 	Abitante findOneWithMunicipio(Long id);
+
+	List<Abitante> findAll(Example<Abitante> of);
 
 }

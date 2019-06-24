@@ -3,6 +3,9 @@ package it.prova.service.abitante;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,12 +29,12 @@ public class AbitanteServiceImpl implements AbitanteService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Abitante caricaSingoloAbitante(long id) {
+	public Abitante caricaSingoloAbitante(Long id) {
 		return abitanteRepository.findOne(id);
 	}
 	
 	@Override
-	public Abitante caricaSingoloAbitanteWithMunicipio(long id) {
+	public Abitante caricaSingoloAbitanteWithMunicipio(Long id) {
 		return abitanteRepository.findOneWithMunicipio(id);
 	}
 
@@ -51,9 +54,18 @@ public class AbitanteServiceImpl implements AbitanteService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Abitante> findByExample(Abitante exampleInput) {
-		return null;
-	}
+	public List<Abitante> findByExample(Abitante abitanteExample) {
+			 ExampleMatcher matcher = ExampleMatcher.matching()     	
+	                 .withStringMatcher(StringMatcher.CONTAINING);   // Match string containing pattern   
+	                 //.withIgnoreCase();   
+			 List<Abitante> res = (List<Abitante>) abitanteRepository.findAll(Example.of(abitanteExample,matcher));
+			 for (Abitante abitante : res) {
+				abitante.getMunicipio().getDescrizione();
+			}
+			 return res;
+//			return (List<Abitante>) abitanteRepository.findAll(Example.of(abitanteExample,matcher));
+//			return (List<Abitante>) abitanteRepository.findAll((Example<Abitante>) Example.of(example,matcher));
+		}
 
 	@Override
 	public List<Abitante> findByNome(String nameInput) {
@@ -61,12 +73,12 @@ public class AbitanteServiceImpl implements AbitanteService {
 	}
 
 	@Override
-	public List<Abitante> cercaAbitantiConEtaMaggioreDi(int etaInput) {
+	public List<Abitante> cercaAbitantiConEtaMaggioreDi(Integer etaInput) {
 		return abitanteRepository.findByEtaGreaterThan(etaInput);
 	}
 
 	@Override
-	public List<Abitante> cercaAbitantiByEtaOrdinaPerNomeDesc(int eta) {
+	public List<Abitante> cercaAbitantiByEtaOrdinaPerNomeDesc(Integer eta) {
 		return abitanteRepository.findByEtaOrderByNomeDesc(eta);
 	}
 
@@ -76,7 +88,7 @@ public class AbitanteServiceImpl implements AbitanteService {
 	}
 
 	@Override
-	public List<Abitante> cercaAbitantiPerNomeAndEta(String nomeInput, int etaInput) {
+	public List<Abitante> cercaAbitantiPerNomeAndEta(String nomeInput, Integer etaInput) {
 		return abitanteRepository.findByNomeAndEta(nomeInput, etaInput);
 	}
 

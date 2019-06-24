@@ -10,9 +10,9 @@ public interface AbitanteService {
 	
 	public List<Abitante> listAllAbitantiEager();
 
-	public Abitante caricaSingoloAbitante(long id);
+	public Abitante caricaSingoloAbitante(Long id);
 	
-	public Abitante caricaSingoloAbitanteWithMunicipio(long id);
+	public Abitante caricaSingoloAbitanteWithMunicipio(Long id);
 
 	public void aggiorna(Abitante abitanteInstance);
 
@@ -24,11 +24,11 @@ public interface AbitanteService {
 	
 	public List<Abitante> findByNome(String nameInput);
 	
-	public List<Abitante> cercaAbitantiConEtaMaggioreDi(int etaInput);
+	public List<Abitante> cercaAbitantiConEtaMaggioreDi(Integer etaInput);
 	
-	public List<Abitante> cercaAbitantiPerNomeAndEta(String nomeInput, int etaInput);
+	public List<Abitante> cercaAbitantiPerNomeAndEta(String nomeInput, Integer etaInput);
 	
-	public List<Abitante> cercaAbitantiByEtaOrdinaPerNomeDesc(int eta);
+	public List<Abitante> cercaAbitantiByEtaOrdinaPerNomeDesc(Integer eta);
 	
 	public List<Abitante> cercaPerNomeCheIniziaCon(String tokenIniziale);
 	
