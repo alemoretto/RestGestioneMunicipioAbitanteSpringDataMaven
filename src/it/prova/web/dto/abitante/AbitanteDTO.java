@@ -52,7 +52,7 @@ public class AbitanteDTO {
 		result.setEta(source.getEta());
 		result.setResidenza(source.getResidenza());
 		if(includeMunicipio)
-			result.setMunicipio(MunicipioDTO.buildMunicipioModelFromDTO(source.getMunicipio(), includeMunicipio));
+			result.setMunicipio(MunicipioDTO.buildMunicipioModelFromDTO(source.getMunicipio(), !includeMunicipio));
 		return result;
 	}
 
