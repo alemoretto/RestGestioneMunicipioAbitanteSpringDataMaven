@@ -20,6 +20,11 @@ public class AbitanteServiceImpl implements AbitanteService {
 		return (List<Abitante>) abitanteRepository.findAll();
 	}
 
+	@Override
+	public List<Abitante> listAllAbitantiEager() {
+		return abitanteRepository.findAllEagerMunicipio();
+	}
+	
 	@Transactional(readOnly = true)
 	public Abitante caricaSingoloAbitante(long id) {
 		return abitanteRepository.findOne(id);
@@ -75,11 +80,5 @@ public class AbitanteServiceImpl implements AbitanteService {
 		return abitanteRepository.findByNomeAndEta(nomeInput, etaInput);
 	}
 
-	@Override
-	public List<Abitante> listAllAbitantiEager() {
-		return abitanteRepository.findAllEagerMunicipio();
-	}
-
-	
 
 }

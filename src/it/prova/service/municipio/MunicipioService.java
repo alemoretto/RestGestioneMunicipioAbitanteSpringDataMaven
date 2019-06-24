@@ -7,6 +7,8 @@ import it.prova.model.Municipio;
 public interface MunicipioService {
 	
 	public List<Municipio> listAllMunicipi() ;
+	
+	public List<Municipio> listAllMunicipiEager();
 
 	public Municipio caricaSingoloMunicipio(long id);
 	

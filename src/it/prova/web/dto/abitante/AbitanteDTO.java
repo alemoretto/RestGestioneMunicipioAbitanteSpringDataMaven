@@ -20,6 +20,41 @@ public class AbitanteDTO {
 	public AbitanteDTO() {
 	}
 
+	public static List<AbitanteDTO> buildListFromModelList(List<Abitante> input){
+		List<AbitanteDTO> result = new ArrayList<>();
+		for (Abitante abitanteItem : input) {
+			//faccio il binding senza municipio tramite costruttore
+			AbitanteDTO abitanteDTOtemp = buildAbitanteDTOFromModel(abitanteItem, true);
+			//costruisco un municipio senza portarmi dietro gli abitanti con 'false' nei parametri
+			abitanteDTOtemp.setMunicipio(MunicipioDTO.buildMunicipioDTOFromModel(abitanteItem.getMunicipio(), false));
+			result.add(abitanteDTOtemp);
+		}
+		return result;
+	}
+	
+	public static AbitanteDTO buildAbitanteDTOFromModel(Abitante source, boolean includeMunicipio) {
+		AbitanteDTO result = new AbitanteDTO();
+		result.setId(source.getId());
+		result.setNome(source.getNome());
+		result.setCognome(source.getCognome());
+		result.setEta(source.getEta());
+		result.setResidenza(source.getResidenza());
+		if(includeMunicipio)
+			result.setMunicipio(MunicipioDTO.buildMunicipioDTOFromModel(source.getMunicipio(), !includeMunicipio));
+		return result;
+	}
+	
+	public static Abitante buildAbitanteModelFromDTO(AbitanteDTO source, boolean includeMunicipio) {
+		Abitante result = new Abitante();
+		result.setId(source.getId());
+		result.setNome(source.getNome());
+		result.setCognome(source.getCognome());
+		result.setEta(source.getEta());
+		result.setResidenza(source.getResidenza());
+		if(includeMunicipio)
+			result.setMunicipio(MunicipioDTO.buildMunicipioModelFromDTO(source.getMunicipio(), includeMunicipio));
+		return result;
+	}
 
 	public Long getId() {
 		return id;
@@ -69,40 +104,4 @@ public class AbitanteDTO {
 		this.municipio = municipio;
 	}
 	
-	public static List<AbitanteDTO> buildListFromModelList(List<Abitante> input){
-		List<AbitanteDTO> result = new ArrayList<>();
-		for (Abitante abitanteItem : input) {
-			//faccio il binding senza municipio tramite costruttore
-			AbitanteDTO abitanteDTOtemp = buildAbitanteDTOFromModel(abitanteItem, true);
-			//costruisco un municipio senza portarmi dietro gli abitanti con 'false' nei parametri
-			abitanteDTOtemp.setMunicipio(MunicipioDTO.buildMunicipioDTOFromModel(abitanteItem.getMunicipio(), false));
-			result.add(abitanteDTOtemp);
-		}
-		return result;
-	}
-	
-	public static AbitanteDTO buildAbitanteDTOFromModel(Abitante source, boolean includeMunicipio) {
-		AbitanteDTO result = new AbitanteDTO();
-		result.setId(source.getId());
-		result.setNome(source.getNome());
-		result.setCognome(source.getCognome());
-		result.setEta(source.getEta());
-		result.setResidenza(source.getResidenza());
-		if(includeMunicipio)
-			result.setMunicipio(MunicipioDTO.buildMunicipioDTOFromModel(source.getMunicipio(), !includeMunicipio));
-		return result;
-	}
-	
-	public static Abitante buildAbitanteModelFromDTO(AbitanteDTO source, boolean includeMunicipio) {
-		Abitante result = new Abitante();
-		result.setId(source.getId());
-		result.setNome(source.getNome());
-		result.setCognome(source.getCognome());
-		result.setEta(source.getEta());
-		result.setResidenza(source.getResidenza());
-		if(includeMunicipio)
-			result.setMunicipio(MunicipioDTO.buildMunicipioModelFromDTO(source.getMunicipio(), !includeMunicipio));
-		return result;
-	}
-
 }

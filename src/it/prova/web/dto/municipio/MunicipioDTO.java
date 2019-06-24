@@ -21,6 +21,34 @@ public class MunicipioDTO {
 
 	}
 
+	public static MunicipioDTO buildMunicipioDTOFromModel(Municipio source, boolean eagerAbitanti) {
+		MunicipioDTO result = new MunicipioDTO();
+		result.setId(source.getId());
+		result.setDescrizione(source.getDescrizione());
+		result.setCodice(source.getCodice());
+		result.setUbicazione(source.getUbicazione());
+		if (eagerAbitanti) {
+			for (Abitante abitanteItem : source.getAbitanti()) {
+				result.getAbitanti().add(AbitanteDTO.buildAbitanteDTOFromModel(abitanteItem, false));
+			}
+		}
+		return result;
+	}
+	
+	public static Municipio buildMunicipioModelFromDTO(MunicipioDTO source, boolean eagerAbitanti) {
+		Municipio result = new Municipio();
+		result.setId(source.getId());
+		result.setDescrizione(source.getDescrizione());
+		result.setCodice(source.getCodice());
+		result.setUbicazione(source.getUbicazione());
+		if (eagerAbitanti) {
+			for (AbitanteDTO abitanteDTOItem : source.getAbitanti()) {
+				result.getAbitanti().add(AbitanteDTO.buildAbitanteModelFromDTO(abitanteDTOItem, false));
+			}
+		}
+		return result;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -59,34 +87,6 @@ public class MunicipioDTO {
 
 	public void setAbitanti(Set<AbitanteDTO> abitanti) {
 		this.abitanti = abitanti;
-	}
-
-	public static MunicipioDTO buildMunicipioDTOFromModel(Municipio source, boolean eagerAbitanti) {
-		MunicipioDTO result = new MunicipioDTO();
-		result.setId(source.getId());
-		result.setDescrizione(source.getDescrizione());
-		result.setCodice(source.getCodice());
-		result.setUbicazione(source.getUbicazione());
-		if (eagerAbitanti) {
-			for (Abitante abitanteItem : source.getAbitanti()) {
-				result.getAbitanti().add(AbitanteDTO.buildAbitanteDTOFromModel(abitanteItem, false));
-			}
-		}
-		return result;
-	}
-	
-	public static Municipio buildMunicipioModelFromDTO(MunicipioDTO source, boolean eagerAbitanti) {
-		Municipio result = new Municipio();
-		result.setId(source.getId());
-		result.setDescrizione(source.getDescrizione());
-		result.setCodice(source.getCodice());
-		result.setUbicazione(source.getUbicazione());
-		if (eagerAbitanti) {
-			for (AbitanteDTO abitanteDTOItem : source.getAbitanti()) {
-				result.getAbitanti().add(AbitanteDTO.buildAbitanteModelFromDTO(abitanteDTOItem, false));
-			}
-		}
-		return result;
 	}
 
 }

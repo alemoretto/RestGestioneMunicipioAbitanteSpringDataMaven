@@ -1,6 +1,7 @@
 package it.prova.web.rest.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,7 +28,15 @@ public class AbitanteResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listAll() {
-		List<AbitanteDTO> result = AbitanteDTO.buildListFromModelList(abitanteService.listAllAbitantiEager());
+		List<AbitanteDTO> result = abitanteService.listAllAbitanti().stream().map(a -> AbitanteDTO.buildAbitanteDTOFromModel(a, false)).collect(Collectors.toList());
+		return Response.status(200).entity(result).build();
+	}
+	
+	@GET
+	@Path("/eager")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listAllEager() {
+		List<AbitanteDTO> result = abitanteService.listAllAbitantiEager().stream().map(a -> AbitanteDTO.buildAbitanteDTOFromModel(a, true)).collect(Collectors.toList());
 		return Response.status(200).entity(result).build();
 	}
 	
@@ -35,13 +44,21 @@ public class AbitanteResource {
 	@Path("{id : \\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAbitante(@PathParam("id") Long id) {
-		AbitanteDTO abitanteDTOInstance =AbitanteDTO.buildAbitanteDTOFromModel(abitanteService.caricaSingoloAbitanteWithMunicipio(id),true);
+		AbitanteDTO abitanteDTOInstance = AbitanteDTO.buildAbitanteDTOFromModel(abitanteService.caricaSingoloAbitante(id),false);
+		return Response.status(200).entity(abitanteDTOInstance).build();
+	}
+	
+	@GET
+	@Path("/eager/{id : \\d+}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAbitanteEager(@PathParam("id") Long id) {
+		AbitanteDTO abitanteDTOInstance = AbitanteDTO.buildAbitanteDTOFromModel(abitanteService.caricaSingoloAbitanteWithMunicipio(id),true);
 		return Response.status(200).entity(abitanteDTOInstance).build();
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response insertiNuovaAutomobile(AbitanteDTO abitanteDTOInput) {
+	public Response insertNuovoAbitante(AbitanteDTO abitanteDTOInput) {
 		Abitante abitanteDaInserire = AbitanteDTO.buildAbitanteModelFromDTO(abitanteDTOInput, true);
 		abitanteService.inserisciNuovo(abitanteDaInserire);
 		abitanteDTOInput.setId(abitanteDaInserire.getId());

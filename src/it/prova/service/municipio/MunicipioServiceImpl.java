@@ -24,6 +24,11 @@ public class MunicipioServiceImpl implements MunicipioService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<Municipio> listAllMunicipiEager() {
+		return (List<Municipio>) municipioRepository.findAllEager();
+	}
+	
+	@Transactional(readOnly = true)
 	public Municipio caricaSingoloMunicipio(long id) {
 		return municipioRepository.findOne(id);
 	}
