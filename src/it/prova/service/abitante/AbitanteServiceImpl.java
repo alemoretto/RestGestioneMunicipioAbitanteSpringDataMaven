@@ -64,7 +64,7 @@ public class AbitanteServiceImpl implements AbitanteService {
 			}
 			 return res;
 //			return (List<Abitante>) abitanteRepository.findAll(Example.of(abitanteExample,matcher));
-//			return (List<Abitante>) abitanteRepository.findAll((Example<Abitante>) Example.of(example,matcher));
+//			return (List<Abitante>) abitanteRepository.findAll((Example<Abitante>) Example.of(abitanteExample,matcher));
 		}
 
 	@Override
